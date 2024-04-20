@@ -11,8 +11,9 @@ public class GameCanvas extends Canvas {
         setIgnoreRepaint(true);
     }
 
-    public void render(){
+    public void draw(){
         Graphics2D graphics = (Graphics2D) bs.getDrawGraphics();
+        graphics.clearRect(0, 0, (int)Main.getWidth(), (int)Main.getHeight());
 
         Renderer r = new Renderer(graphics);
 

@@ -16,6 +16,9 @@ public abstract class GameObject {
     public static void updateObjectList(){
         allObjects.addAll(queuedForCreation);
         allObjects.removeAll(queuedForRemoval);
+
+        queuedForCreation.clear();
+        queuedForRemoval.clear();
     }
 
     public static Collection<GameObject> getAllObjects(){
