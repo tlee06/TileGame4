@@ -8,6 +8,23 @@ public class Player extends GameObject{
     public Vector2 size = new Vector2(0.8, 1.8);
     public Vector2 pos = new Vector2(0,0);
 
+    private final Collider collider = new Collider() {
+        @Override
+        public Vector2 getCenter() {
+            return pos;
+        }
+
+        @Override
+        public void setCenter(Vector2 value) {
+            pos = value;
+        }
+
+        @Override
+        public Vector2 getSize() {
+            return size;
+        }
+    };
+
     public Player(){
         instance = this;
     }
@@ -27,5 +44,7 @@ public class Player extends GameObject{
         if(Keys.moveRight.isDown()) {
             pos = pos.add(new Vector2(speed * Main.getDeltaTime(), 0.0));
         }
+
+        collider.processCollisionWithTerrain();
     }
 }

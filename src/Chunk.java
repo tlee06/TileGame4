@@ -1,4 +1,4 @@
-import com.sun.source.tree.BreakTree;
+import java.util.HashMap;
 
 public class Chunk extends GameObject {
     public class Tilemap<TileTypeT extends AbstractTileType<?>>{
@@ -27,6 +27,7 @@ public class Chunk extends GameObject {
         }
     }
     public static final int CHUNK_SIZE = 64;
+    private static final HashMap<Vector2Int, Chunk> chunkMap = new HashMap<>();
 
     public final Vector2Int chunkPos;
     public final Vector2Int globalChunkPos;
@@ -36,10 +37,24 @@ public class Chunk extends GameObject {
 
     public Chunk(Vector2Int chunkPos){
         this.chunkPos = chunkPos;
+        chunkMap.put(chunkPos, this);
         globalChunkPos = chunkPos.scale(CHUNK_SIZE);
 
         mainTilemap = new Tilemap<>(new TileType[CHUNK_SIZE][CHUNK_SIZE]);
         backgroundTilemap = new Tilemap<>(new BackgroundTileType[CHUNK_SIZE][CHUNK_SIZE]);
+    }
+
+    public static Vector2Int toChunkPos(Vector2Int global){
+        return global.scale(1D/CHUNK_SIZE).floorToInt();
+    }
+    public static Chunk tryGetChunk(Vector2Int chunkPos){
+        return chunkMap.get(chunkPos);
+    }
+
+    public static Chunk getChunk(Vector2Int chunkPos){
+        Chunk chunk = tryGetChunk(chunkPos);
+        if(chunk == null) return World.loadChunk(chunkPos);
+        return chunk;
     }
 
     public int toGlobalPosX(int x){
@@ -52,6 +67,17 @@ public class Chunk extends GameObject {
 
     public Vector2Int toGlobalPos(Vector2Int local){
         return new Vector2Int(toGlobalPosX(local.x), toGlobalPosY(local.y));
+    }
+
+    public int toLocalPosX(int x){
+        return x - globalChunkPos.x;
+    }
+
+    public int toLocalPosY(int y){
+        return y - globalChunkPos.y;
+    }
+    public Vector2Int toLocalPos(Vector2Int global) {
+        return new Vector2Int(toLocalPosX(global.x), toLocalPosY(global.y));
     }
 
     @Override

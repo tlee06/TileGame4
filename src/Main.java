@@ -11,6 +11,8 @@ public class Main {
     private static long currentTime;
 
     public static void main(String[] args) {
+        System.setProperty("sun.java2d.opengl", "true");
+
         window = new JFrame();
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setSize(500, 500);

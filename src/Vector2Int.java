@@ -16,7 +16,7 @@ public class Vector2Int {
     public final Vector2Int scale(int b){
         return new Vector2Int(x * b, y * b);
     }
-    public final Vector2 scale(float b){
+    public final Vector2 scale(double b){
         return new Vector2(x * b, y * b);
     }
 }
