@@ -2,7 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
+    public static final double MAX_DELTA_TIME = (1/15d);
     public static final RunnableEvent onUpdate = new RunnableEvent();
+    public static final RunnableEvent onPreUpdate = new RunnableEvent();
     private static JFrame window;
     private static GameCanvas canvas;
 
@@ -28,9 +30,6 @@ public class Main {
         GameObject.updateObjectList();
 
         mainLoop();
-
-        Chunk test = new Chunk(new Vector2Int(0, 0));
-        test.mainTilemap.setTile(0, 1, Tiles.DIRT);
     }
 
     private static void mainLoop(){
@@ -43,6 +42,8 @@ public class Main {
     private static void update(){
         currentTime = System.nanoTime();
 
+        onPreUpdate.invoke();
+
         for(GameObject g : GameObject.getAllObjects()){
             g.tick();
         }
@@ -53,7 +54,7 @@ public class Main {
 
         long newTime = System.nanoTime();
         long delta = newTime - timePrev;
-        deltaTime = delta / 1_000_000_000D;
+        deltaTime = Math.min(delta / 1_000_000_000D, MAX_DELTA_TIME);
         timePrev = newTime;
     }
 

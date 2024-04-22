@@ -57,6 +57,10 @@ public class Chunk extends GameObject {
         return chunk;
     }
 
+    public static boolean hasChunk(Vector2Int chunkPos){
+        return chunkMap.containsKey(chunkPos);
+    }
+
     public int toGlobalPosX(int x){
         return globalChunkPos.x + x;
     }
@@ -84,6 +88,16 @@ public class Chunk extends GameObject {
     public void render(Renderer r) {
         for (int x = 0; x < CHUNK_SIZE; x++) {
             for (int y = 0; y < CHUNK_SIZE; y++) {
+                int globalX = toGlobalPosX(x);
+                int globalY = toGlobalPosY(y);
+
+                if(
+                        r.worldToScreenPosX(globalX + 1) < 0 ||
+                        r.worldToScreenPosY(globalY+1) < 0 ||
+                        r.worldToScreenPosX(globalX) > Main.getWidth() ||
+                        r.worldToScreenPosY(globalY) > Main.getHeight()
+                ) continue;
+
                 BackgroundTileType bgTile = backgroundTilemap.getTile(x, y);
                 if(bgTile != null) bgTile.render(r, backgroundTilemap, x, y);
 

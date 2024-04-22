@@ -1,3 +1,3 @@
 public abstract class TerrainGenerator {
-    public abstract LayeredTileType getTile(int x, int y);
+    public abstract void setTile(Chunk chunk, int localX, int localY);
 }

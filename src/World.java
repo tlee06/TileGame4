@@ -2,20 +2,19 @@ public class World {
     //private constructor makes class (practically) uninstantiable (like the Math class)
     private World(){}
 
-    private static TerrainGenerator generator = new TestTerrainGenerator();
+    private static TerrainGenerator generator = new OverworldTerrainGenerator();
 
     public static Chunk loadChunk(Vector2Int chunkPos){
-        Chunk chunk = new Chunk(chunkPos);
+        Chunk chunk = Chunk.tryGetChunk(chunkPos);
+        if(chunk != null) return  chunk;
+
+        chunk = new Chunk(chunkPos);
 
         for (int x = 0; x < Chunk.CHUNK_SIZE; x++){
             for (int y = 0; y < Chunk.CHUNK_SIZE; y++) {
-                LayeredTileType tile = generator.getTile(chunk.toGlobalPosX(x), y + chunk.toGlobalPosY(y));
-                chunk.mainTilemap.setTile(x, y, tile.main());
-                chunk.backgroundTilemap.setTile(x, y, tile.background());
+                generator.setTile(chunk, x, y);
             }
         }
-
-        //TODO: actual world generation
         return chunk;
     }
 

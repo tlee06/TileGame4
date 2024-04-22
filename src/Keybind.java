@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 public class Keybind {
     private int keyCode;
 
+    private boolean pressed;
     private boolean isDown;
     private boolean isDownPrev;
 
@@ -17,19 +18,21 @@ public class Keybind {
             }
             return false;
         });
+
         Main.onUpdate.subscribe(this::update);
+        Main.onPreUpdate.subscribe(this::preUpdate);
     }
 
 
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == keyCode){
-            isDown = true;
+            pressed = true;
         }
     }
 
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == keyCode){
-            isDown = false;
+            pressed = false;
         }
     }
 
@@ -48,4 +51,5 @@ public class Keybind {
     private void update(){
         isDownPrev = isDown;
     }
+    private void preUpdate(){isDown = pressed;}
 }

@@ -26,6 +26,7 @@ public abstract class Collider {
                 Chunk chunk = World.getChunkGlobal(tilePos);
                 Vector2Int localPos = chunk.toLocalPos(tilePos);
                 TileType mainTile = chunk.mainTilemap.getTile(localPos);
+
                 if(mainTile != null) mainTile.processCollision(this, chunk.mainTilemap, localPos);
             }
         }
