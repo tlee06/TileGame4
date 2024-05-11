@@ -1,8 +1,18 @@
 public class TileType extends AbstractTileType<TileType>{
     public final BackgroundTileType backgroundType;
-    public TileType(TileRenderer<TileType> renderer) {
+
+    private TileType(TileRenderer<TileType> renderer, BackgroundTileType backgroundType) {
         super(renderer);
-        backgroundType = null;
+        this.backgroundType = backgroundType;
+    }
+
+    public TileType(TileRenderer<TileType> renderer) {
+        this(renderer, (BackgroundTileType) null);
+    }
+
+    public TileType(TileRenderer<TileType> renderer, TileRenderer<BackgroundTileType> bgRenderer){
+        super(renderer);
+        this.backgroundType = new BackgroundTileType(bgRenderer, this);
     }
 
     public void processCollision(Collider collider, Chunk.Tilemap<TileType> tilemap, Vector2Int localPos){

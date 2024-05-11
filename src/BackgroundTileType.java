@@ -1,6 +1,7 @@
 public class BackgroundTileType extends AbstractTileType<BackgroundTileType>{
-    public TileType foregroundTileType;
-    public BackgroundTileType(TileRenderer<BackgroundTileType> renderer) {
+    public final TileType foregroundTileType;
+    public BackgroundTileType(TileRenderer<BackgroundTileType> renderer, TileType foregroundTileType) {
         super(renderer);
+        this.foregroundTileType = foregroundTileType;
     }
 }
