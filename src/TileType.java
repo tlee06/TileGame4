@@ -1,6 +1,8 @@
 public class TileType extends AbstractTileType<TileType>{
+    public final BackgroundTileType backgroundType;
     public TileType(TileRenderer<TileType> renderer) {
         super(renderer);
+        backgroundType = null;
     }
 
     public void processCollision(Collider collider, Chunk.Tilemap<TileType> tilemap, Vector2Int localPos){
@@ -21,16 +23,16 @@ public class TileType extends AbstractTileType<TileType>{
 
         Vector2 newCenter = new Vector2(cCenter.x, cCenter.y);
 
-        //top face of block
-        if(Util.trianglesIntersect(bCenter, bTopLeft, bTopRight, cCenter, cBottomRight, cBottomLeft)){
-            newCenter = newCenter.withY(gPos.y - semiSize.y);
-            collider.onBottomCollide();
-        }
-
         //right face of block
         if(Util.trianglesIntersect(bCenter, bTopRight, bBottomRight, cCenter, cBottomLeft, cTopLeft)){
-            newCenter = newCenter.withX(gPos.x + semiSize.y + 1);
+            newCenter = newCenter.withX(gPos.x + semiSize.x + 1);
             collider.onLeftCollide();
+        }
+
+        //left face of block
+        if(Util.trianglesIntersect(bCenter, bBottomLeft, bTopLeft, cCenter, cTopRight, cBottomRight)){
+            newCenter = newCenter.withX(gPos.x - semiSize.x);
+            collider.onRightCollide();
         }
 
         //bottom face of block
@@ -39,10 +41,10 @@ public class TileType extends AbstractTileType<TileType>{
             collider.onTopCollide();
         }
 
-        //left face of block
-        if(Util.trianglesIntersect(bCenter, bBottomLeft, bTopLeft, cCenter, cTopRight, cBottomRight)){
-            newCenter = newCenter.withX(gPos.x - semiSize.x);
-            collider.onRightCollide();
+        //top face of block
+        if(Util.trianglesIntersect(bCenter, bTopLeft, bTopRight, cCenter, cBottomRight, cBottomLeft)){
+            newCenter = newCenter.withY(gPos.y - semiSize.y);
+            collider.onBottomCollide();
         }
 
         collider.setCenter(newCenter);

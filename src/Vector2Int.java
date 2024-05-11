@@ -22,6 +22,10 @@ public class Vector2Int {
         return new Vector2(x * b, y * b);
     }
 
+    public final Vector2 toVector() {
+        return new Vector2(x, y);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

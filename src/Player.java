@@ -1,13 +1,14 @@
 public class Player extends GameObject{
     public static Player instance;
+    private static final double ZOOM_SPEED = 0.03;
 
-    public double zoom = 0.05;
+    public double zoom = 0.03;
     public double speed = 15;
     public double terminalVelocity = 30;
     public double jumpPower = 10;
     public Vector2 gravity = new Vector2(0, 16);
     public Vector2 size = new Vector2(0.8, 1.8);
-    public Vector2 pos = new Vector2(0,0);
+    public Vector2 pos = new Vector2(0,-50);
     public Vector2 velocity = new Vector2(0, 0);
 
     private boolean isGrounded = false;
@@ -31,12 +32,12 @@ public class Player extends GameObject{
         @Override
         public void onBottomCollide() {
             isGrounded = true;
-            velocity = velocity.withY(0);
+            if(velocity.y > 0) velocity = velocity.withY(0);
         }
 
         @Override
         public void onTopCollide() {
-            velocity = velocity.withY(0);
+            if(velocity.y < 0) velocity = velocity.withY(0);
         }
     };
 
@@ -48,6 +49,8 @@ public class Player extends GameObject{
     public void render(Renderer r) {
         //r.setColor(new Color(((float) Math.sin(Main.getTime()) + 1f)/2f,0f,0f));
         r.drawRectWorldSpace(pos.sub(size.scale(0.5)), size);
+
+        r.graphics().drawString("FPS: " + (1/Main.getUncappedDeltaTime()), 10, 10);
     }
 
     @Override
@@ -69,6 +72,32 @@ public class Player extends GameObject{
 
         if(Input.jump.isPressed() && isGrounded){
             velocity = velocity.withY(-jumpPower);
+        }
+
+        Vector2Int mouseTile = Renderer.screenToWorldPos(Input.getMousePosition().toVector()).floorToInt();
+
+        if(Input.use.isDown){
+            World.setMainTile(mouseTile, null);
+        }
+
+        if(Input.zoomIn.isDown){
+            zoom += ZOOM_SPEED * Main.getDeltaTime();
+        }
+
+        if(Input.zoomOut.isDown){
+            zoom -= ZOOM_SPEED * Main.getDeltaTime();
+        }
+
+        zoom = Math.max(zoom, 0.001);
+
+        if(Input.debugReset.isPressed()){
+            pos = new Vector2(0, 0);
+            velocity = new Vector2(0, 0);
+            zoom = 0.03;
+        }
+
+        if(Input.debugTeleport.isPressed()){
+            pos = Renderer.screenToWorldPos(Input.getMousePosition().toVector());
         }
     }
 }

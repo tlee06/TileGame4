@@ -23,12 +23,26 @@ public class StaticRandom {
     public static int getRandom(int seed){
         return getRandom(seed, randomTableA);
     }
-
     public static int getRandomB(int seed){
         return getRandom(seed, randomTableB);
     }
-
     public static int getRandom(int x, int y){
-        return getRandom(x) ^ getRandom(y);
+        return getRandom(x) ^ getRandomB(y);
+    }
+    public static int getRandom(int x, int y, int z){
+        return getRandom(getRandom(x, y), z);
+    }
+
+    public static double getRandomDouble(int seed){
+        return (float)getRandom(seed) / Integer.MAX_VALUE;
+    }
+    public static double getRandomDoubleB(int seed){
+        return (float)getRandomB(seed) / Integer.MAX_VALUE;
+    }
+    public static double getRandomDouble(int x, int y){
+        return (float)getRandom(x, y) / Integer.MAX_VALUE;
+    }
+    public static double getRandomDouble(int x, int y, int z){
+        return (float)getRandom(x, y, z) / Integer.MAX_VALUE;
     }
 }

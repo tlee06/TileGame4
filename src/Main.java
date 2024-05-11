@@ -13,7 +13,7 @@ public class Main {
     private static long currentTime;
 
     public static void main(String[] args) {
-        System.setProperty("sun.java2d.opengl", "true");
+        //System.setProperty("sun.java2d.opengl", "true");
 
         window = new JFrame();
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -42,6 +42,15 @@ public class Main {
     private static void update(){
         currentTime = System.nanoTime();
 
+        //load chunks
+        Vector2Int topLeftChunk = Chunk.toChunkPos(Renderer.viewportTopLeftCorner());
+        Vector2Int bottomRightChunk = Chunk.toChunkPos(Renderer.viewportBottomRightCorner());
+        for (int x = topLeftChunk.x; x <= bottomRightChunk.x; x++) {
+            for (int y = topLeftChunk.y; y <= bottomRightChunk.y; y++) {
+                Chunk.getChunk(new Vector2Int(x, y));
+            }
+        }
+
         onPreUpdate.invoke();
 
         for(GameObject g : GameObject.getAllObjects()){
@@ -54,7 +63,7 @@ public class Main {
 
         long newTime = System.nanoTime();
         long delta = newTime - timePrev;
-        deltaTime = Math.min(delta / 1_000_000_000D, MAX_DELTA_TIME);
+        deltaTime = delta / 1_000_000_000D;
         timePrev = newTime;
     }
 
@@ -71,10 +80,22 @@ public class Main {
     }
 
     public static double getDeltaTime(){
+        return Math.min(deltaTime, MAX_DELTA_TIME);
+    }
+
+    public static double getUncappedDeltaTime(){
         return deltaTime;
     }
 
     public static double getTime(){
         return currentTime / 1_000_000_000D;
+    }
+
+    public static JFrame getWindow(){
+        return window;
+    }
+
+    public static GameCanvas getCanvas(){
+        return canvas;
     }
 }

@@ -1,50 +1,22 @@
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 public class Keybind {
-    private int keyCode;
+    protected boolean pressed;
+    protected boolean isDown;
+    protected boolean isDownPrev;
 
-    private boolean pressed;
-    private boolean isDown;
-    private boolean isDownPrev;
-
-    public Keybind(int keyCode){
-        this.keyCode = keyCode;
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher((ke) -> {
-            switch (ke.getID()){
-                case KeyEvent.KEY_PRESSED -> keyPressed(ke);
-                case KeyEvent.KEY_RELEASED -> keyReleased(ke);
-            }
-            return false;
-        });
-
+    public Keybind(){
         Main.onUpdate.subscribe(this::update);
         Main.onPreUpdate.subscribe(this::preUpdate);
     }
 
-
-    public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == keyCode){
-            pressed = true;
-        }
-    }
-
-    public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == keyCode){
-            pressed = false;
-        }
-    }
-
-    public boolean isDown(){
+    public boolean isDown() {
         return isDown;
     }
 
-    public boolean isPressed(){
+    public boolean isPressed() {
         return isDown && !isDownPrev;
     }
 
-    public boolean isReleased(){
+    public boolean isReleased() {
         return !isDown && isDownPrev;
     }
 

@@ -21,7 +21,8 @@ public abstract class Collider {
         Vector2Int topRight = center.add(semiSize).floorToInt();
 
         for (int x = bottomLeft.x; x <= topRight.x; x++) {
-            for (int y = bottomLeft.y; y <= topRight.y; y++) {
+            //reverse for loop here makes the collider prefer going up when stuck in walls instead of down
+            for (int y = topRight.y; y > bottomLeft.y - 1; y--) {
                 Vector2Int tilePos = new Vector2Int(x, y);
                 Chunk chunk = World.getChunkGlobal(tilePos);
                 Vector2Int localPos = chunk.toLocalPos(tilePos);

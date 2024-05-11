@@ -22,7 +22,7 @@ public class Chunk extends GameObject {
         public void setTile(int x, int y, TileTypeT value){
             tiles[x][y] = value;
         }
-        public void getTile(Vector2Int pos, TileTypeT value){
+        public void setTile(Vector2Int pos, TileTypeT value){
             setTile(pos.x, pos.y, value);
         }
     }
@@ -44,9 +44,14 @@ public class Chunk extends GameObject {
         backgroundTilemap = new Tilemap<>(new BackgroundTileType[CHUNK_SIZE][CHUNK_SIZE]);
     }
 
-    public static Vector2Int toChunkPos(Vector2Int global){
+    public static Vector2Int toChunkPos(Vector2 global){
         return global.scale(1D/CHUNK_SIZE).floorToInt();
     }
+
+    public static Vector2Int toChunkPos(Vector2Int global){
+        return toChunkPos(global.toVector());
+    }
+
     public static Chunk tryGetChunk(Vector2Int chunkPos){
         return chunkMap.get(chunkPos);
     }
@@ -86,6 +91,13 @@ public class Chunk extends GameObject {
 
     @Override
     public void render(Renderer r) {
+        if(
+                toGlobalPosX(CHUNK_SIZE) < Renderer.viewportLeftEdge() ||
+                toGlobalPosX(0) > Renderer.viewportRightEdge()
+                //toGlobalPosY(CHUNK_SIZE) < Renderer.viewportBottomEdge()// ||
+                //toGlobalPosY(0) > Renderer.viewportTopEdge()
+        ) return;
+
         for (int x = 0; x < CHUNK_SIZE; x++) {
             for (int y = 0; y < CHUNK_SIZE; y++) {
                 int globalX = toGlobalPosX(x);

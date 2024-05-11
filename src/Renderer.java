@@ -2,46 +2,46 @@ import java.awt.*;
 
 public record Renderer(Graphics2D graphics) {
     //------------------------------------World to screen functions------------------------------------
-    public Vector2 worldToScreenVector(Vector2 world) {
+    public static Vector2 worldToScreenVector(Vector2 world) {
         return new Vector2(worldToScreenVectorComponent(world.x), worldToScreenVectorComponent(world.y));
         //return world.scale(Player.instance.zoom * Main.getHeight());
     }
-    public double worldToScreenVectorComponent(double val){
+    public static double worldToScreenVectorComponent(double val){
         return val * Player.instance.zoom * Main.getHeight();
     }
 
-    public Vector2 worldToScreenPos(Vector2 world) {
+    public static Vector2 worldToScreenPos(Vector2 world) {
         return new Vector2(worldToScreenPosX(world.x), worldToScreenPosY((world.y)));
         //return worldToScreenVector(world.sub(Player.instance.pos)).add(screenCenter());
     }
 
-    public double worldToScreenPosX(double x){
+    public static double worldToScreenPosX(double x){
         return  worldToScreenVectorComponent(x - Player.instance.pos.x) + (Main.getWidth()/2);
     }
 
-    public double worldToScreenPosY(double y){
+    public static double worldToScreenPosY(double y){
         return  worldToScreenVectorComponent(y - Player.instance.pos.y) + (Main.getHeight()/2);
     }
 
     //------------------------------------Screen to world functions------------------------------------
-    public Vector2 screenToWorldVector(Vector2 world) {
+    public static Vector2 screenToWorldVector(Vector2 world) {
         return new Vector2(screenToWorldVectorComponent(world.x), screenToWorldVectorComponent(world.y));
         //return world.scale(Player.instance.zoom * Main.getHeight());
     }
-    public double screenToWorldVectorComponent(double val){
+    public static double screenToWorldVectorComponent(double val){
         return val / (Player.instance.zoom * Main.getHeight());
     }
 
-    public Vector2 screenToWorldPos(Vector2 world) {
-        return new Vector2(screenToWorldPosX(world.x), screenToWorldPosY(world.y));
+    public static Vector2 screenToWorldPos(Vector2 screen) {
+        return new Vector2(screenToWorldPosX(screen.x), screenToWorldPosY(screen.y));
         //return worldToScreenVector(world.sub(Player.instance.pos)).add(screenCenter());
     }
 
-    public double screenToWorldPosX(double x){
-        return screenToWorldVectorComponent(x - (Main.getHeight()/2)) + Player.instance.pos.x;
+    public static double screenToWorldPosX(double x){
+        return screenToWorldVectorComponent(x - (Main.getWidth()/2)) + Player.instance.pos.x;
     }
 
-    public double screenToWorldPosY(double y){
+    public static double screenToWorldPosY(double y){
         return screenToWorldVectorComponent(y - (Main.getHeight()/2)) + Player.instance.pos.y;
     }
 
@@ -110,10 +110,24 @@ public record Renderer(Graphics2D graphics) {
         drawImage(image, worldToScreenPos(pos), worldToScreenVector(size));
     }
 
-    public double viewportLeftEdge(){
+    public static double viewportLeftEdge(){
         return screenToWorldPosX(0);
     }
-    public double viewportRightEdge(){
-        return worldToScreenPosX(Main.getWidth());
+    public static double viewportRightEdge(){
+        return screenToWorldPosX(Main.getWidth());
+    }
+    public static double viewportTopEdge(){
+        return screenToWorldPosY(0);
+    }
+    public static double viewportBottomEdge(){
+        return screenToWorldPosY(Main.getHeight());
+    }
+
+    public static Vector2 viewportTopLeftCorner(){
+        return new Vector2(viewportLeftEdge(), viewportTopEdge());
+    }
+
+    public static Vector2 viewportBottomRightCorner(){
+        return new Vector2(viewportRightEdge(), viewportBottomEdge());
     }
 }
