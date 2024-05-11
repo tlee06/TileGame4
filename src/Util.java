@@ -38,4 +38,8 @@ public class Util {
                 linesIntersect(a2, a3, b3, b1) ||
                 linesIntersect(a3, a1, b3, b1);
     }
+
+    public static double invLerp(double a, double b, double t){
+        return Math.clamp((t-a)/(b-a), 0, 1);
+    }
 }

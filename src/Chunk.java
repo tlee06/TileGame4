@@ -104,16 +104,17 @@ public class Chunk extends GameObject {
                 int globalY = toGlobalPosY(y);
 
                 if(
-                        r.worldToScreenPosX(globalX + 1) < 0 ||
-                        r.worldToScreenPosY(globalY+1) < 0 ||
-                        r.worldToScreenPosX(globalX) > Main.getWidth() ||
-                        r.worldToScreenPosY(globalY) > Main.getHeight()
+                        Renderer.worldToScreenPosX(globalX + 1) < 0 ||
+                        Renderer.worldToScreenPosY(globalY+1) < 0 ||
+                        Renderer.worldToScreenPosX(globalX) > Main.getWidth() ||
+                        Renderer.worldToScreenPosY(globalY) > Main.getHeight()
                 ) continue;
 
                 BackgroundTileType bgTile = backgroundTilemap.getTile(x, y);
-                if(bgTile != null) bgTile.render(r, backgroundTilemap, x, y);
-
                 TileType tile = mainTilemap.getTile(x, y);
+
+                //TODO: account for transparency in foreground tile types
+                if(tile == null && bgTile != null) bgTile.render(r, backgroundTilemap, x, y);
                 if(tile != null) tile.render(r, mainTilemap, x, y);
             }
         }
