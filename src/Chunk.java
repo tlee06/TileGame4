@@ -98,6 +98,30 @@ public class Chunk extends GameObject {
                 //toGlobalPosY(0) > Renderer.viewportTopEdge()
         ) return;
 
+        //rendering it in two separate loops for foreground and background is more efficient
+        //render background blocks
+        for (int x = 0; x < CHUNK_SIZE; x++) {
+            for (int y = 0; y < CHUNK_SIZE; y++) {
+                int globalX = toGlobalPosX(x);
+                int globalY = toGlobalPosY(y);
+
+                if(
+                        Renderer.worldToScreenPosX(globalX + 1) < 0 ||
+                                Renderer.worldToScreenPosY(globalY+1) < 0 ||
+                                Renderer.worldToScreenPosX(globalX) > Main.getWidth() ||
+                                Renderer.worldToScreenPosY(globalY) > Main.getHeight()
+                ) continue;
+
+                BackgroundTileType bgTile = backgroundTilemap.getTile(x, y);
+                TileType tile = mainTilemap.getTile(x, y);
+
+                //TODO: account for transparency in foreground tile types
+                if(tile == null && bgTile != null) bgTile.render(r, backgroundTilemap, x, y);
+                //if(tile != null) tile.render(r, mainTilemap, x, y);
+            }
+        }
+
+        //render foreground blocks
         for (int x = 0; x < CHUNK_SIZE; x++) {
             for (int y = 0; y < CHUNK_SIZE; y++) {
                 int globalX = toGlobalPosX(x);
@@ -110,11 +134,8 @@ public class Chunk extends GameObject {
                         Renderer.worldToScreenPosY(globalY) > Main.getHeight()
                 ) continue;
 
-                BackgroundTileType bgTile = backgroundTilemap.getTile(x, y);
                 TileType tile = mainTilemap.getTile(x, y);
 
-                //TODO: account for transparency in foreground tile types
-                if(tile == null && bgTile != null) bgTile.render(r, backgroundTilemap, x, y);
                 if(tile != null) tile.render(r, mainTilemap, x, y);
             }
         }
