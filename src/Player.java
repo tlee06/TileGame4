@@ -76,15 +76,15 @@ public class Player extends GameObject{
 
         Vector2Int mouseTile = Renderer.screenToWorldPos(Input.getMousePosition().toVector()).floorToInt();
 
-        if(Input.use.isDown){
+        if(Input.use.isPressed()){
             World.setMainTile(mouseTile, null);
         }
 
-        if(Input.zoomIn.isDown){
+        if(Input.zoomIn.isDown()){
             zoom += ZOOM_SPEED * Main.getDeltaTime();
         }
 
-        if(Input.zoomOut.isDown){
+        if(Input.zoomOut.isDown()){
             zoom -= ZOOM_SPEED * Main.getDeltaTime();
         }
 
