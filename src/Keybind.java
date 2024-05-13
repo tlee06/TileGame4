@@ -4,6 +4,8 @@ public class Keybind {
     protected boolean isDownPrev;
 
     public Keybind(){
+        //makes the update and preUpdate methods called every frame and at the beginning of
+        //every frame respectively
         Main.onUpdate.subscribe(this::update);
         Main.onPreUpdate.subscribe(this::preUpdate);
     }

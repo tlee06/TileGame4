@@ -12,9 +12,6 @@ public class Input {
     public static Keybind zoomIn = new KeyboardKeybind(KeyEvent.VK_EQUALS);
     public static Keybind zoomOut = new KeyboardKeybind(KeyEvent.VK_MINUS);
 
-    public static Keybind debugReset = new KeyboardKeybind(KeyEvent.VK_R);
-    public static Keybind debugTeleport = new KeyboardKeybind(KeyEvent.VK_T);
-
     public static Vector2Int getMousePosition(){
         Point point = MouseInfo.getPointerInfo().getLocation();
         SwingUtilities.convertPointFromScreen(point, Main.getCanvas());

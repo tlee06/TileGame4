@@ -89,15 +89,5 @@ public class Player extends GameObject{
         }
 
         zoom = Math.max(zoom, 0.001);
-
-        if(Input.debugReset.isPressed()){
-            pos = new Vector2(0, 0);
-            velocity = new Vector2(0, 0);
-            zoom = 0.03;
-        }
-
-        if(Input.debugTeleport.isPressed()){
-            pos = Renderer.screenToWorldPos(Input.getMousePosition().toVector());
-        }
     }
 }
