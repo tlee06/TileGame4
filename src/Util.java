@@ -40,6 +40,9 @@ public class Util {
     }
 
     public static double invLerp(double a, double b, double t){
-        return Math.clamp((t-a)/(b-a), 0, 1);
+        return clamp((t-a)/(b-a), 0, 1);
+    }
+    public static double clamp(double val, double min, double max) {
+        return Math.max(min, Math.min(max, val));
     }
 }

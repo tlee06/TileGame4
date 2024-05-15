@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Objects;
 
 public class Vector2{
@@ -7,6 +8,11 @@ public class Vector2{
     public Vector2(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+    public Vector2(Point x) {
+        this.x=x.getX();
+        this.y=x.getY();
+
     }
 
     public final Vector2 add(Vector2 b){

@@ -1,15 +1,20 @@
+import javax.swing.*;
+import java.awt.*;
+
 public class Player extends GameObject{
     public static Player instance;
     private static final double ZOOM_SPEED = 0.03;
 
     public double zoom = 0.03;
-    public double speed = 15;
+    public double speed = 10;
     public double terminalVelocity = 30;
     public double jumpPower = 10;
-    public Vector2 gravity = new Vector2(0, 16);
+    public Vector2 gravity = new Vector2(0, 30);
     public Vector2 size = new Vector2(0.8, 1.8);
     public Vector2 pos = new Vector2(0,-50);
     public Vector2 velocity = new Vector2(0, 0);
+    public TileType myTile = Tiles.DIRT;
+
 
     private boolean isGrounded = false;
 
@@ -55,6 +60,14 @@ public class Player extends GameObject{
 
     @Override
     public void tick() {
+        if(Input.reset.isPressed()){
+            pos = new Vector2(0,-50);
+
+        }
+        if(Input.teleport.isPressed()){
+            pos = pos.sub(Input.getMousePosition().toVector());
+
+        }
         if(Input.moveLeft.isDown()) {
             pos = pos.add(new Vector2(-speed, 0.0).scale(Main.getDeltaTime()));
         }
@@ -63,12 +76,27 @@ public class Player extends GameObject{
             pos = pos.add(new Vector2(speed, 0.0).scale(Main.getDeltaTime()));
         }
 
-        velocity = velocity.add(gravity.scale(Main.getDeltaTime()));
-        velocity = velocity.withY(Math.min(velocity.y, terminalVelocity));
-        pos = pos.add(velocity.scale(Main.getDeltaTime()));
 
-        isGrounded = false;
-        collider.processCollisionWithTerrain();
+        if (Input.noClip.isDown) {
+            gravity = new Vector2(0, 0);
+            if(Input.moveUp.isDown()) {
+                pos = pos.add(new Vector2(0, -speed).scale(Main.getDeltaTime()));
+            }
+            if(Input.moveDown.isDown()) {
+                pos = pos.add(new Vector2(0, speed).scale(Main.getDeltaTime()));
+            }
+
+        }
+        else{
+            velocity = velocity.add(gravity.scale(Main.getDeltaTime()));
+            velocity = velocity.withY(Math.min(velocity.y, terminalVelocity));
+            pos = pos.add(velocity.scale(Main.getDeltaTime()));
+
+            isGrounded = false;
+            collider.processCollisionWithTerrain();
+            gravity = new Vector2(0, 30);
+
+        }
 
         if(Input.jump.isPressed() && isGrounded){
             velocity = velocity.withY(-jumpPower);
@@ -79,6 +107,15 @@ public class Player extends GameObject{
         if(Input.use.isPressed()){
             World.setMainTile(mouseTile, null);
         }
+        if(Input.chooseDirtBlockType.isPressed()){
+            myTile=Tiles.DIRT;
+        }
+        if(Input.chooseStoneBlockType.isPressed()){
+            myTile=Tiles.STONE;
+        }
+        if(Input.placeBlock.isPressed()){
+            World.setMainTile(mouseTile,myTile);
+        }
 
         if(Input.zoomIn.isDown()){
             zoom += ZOOM_SPEED * Main.getDeltaTime();
@@ -87,6 +124,7 @@ public class Player extends GameObject{
         if(Input.zoomOut.isDown()){
             zoom -= ZOOM_SPEED * Main.getDeltaTime();
         }
+
 
         zoom = Math.max(zoom, 0.001);
     }

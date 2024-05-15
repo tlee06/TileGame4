@@ -7,4 +7,7 @@ public class Tiles {
             new ConstantImageTileRenderer<>("./images/stone_single.png"),
             new ConstantImageTileRenderer<>("./images/stone_single_bg.png")
     );
+    public static final TileType GRASS = new TileType(
+            new ConstantImageTileRenderer<>("./images/grass.png")
+    );
 }
