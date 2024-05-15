@@ -9,11 +9,7 @@ public class Vector2{
         this.x = x;
         this.y = y;
     }
-    public Vector2(Point x) {
-        this.x=x.getX();
-        this.y=x.getY();
 
-    }
 
     public final Vector2 add(Vector2 b){
         return new Vector2(x + b.x, y + b.y);

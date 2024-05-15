@@ -14,6 +14,7 @@ public class Keybind {
         return isDown;
     }
 
+
     public boolean isPressed() {
         return isDown && !isDownPrev;
     }

@@ -14,6 +14,7 @@ public class Player extends GameObject{
     public Vector2 pos = new Vector2(0,-50);
     public Vector2 velocity = new Vector2(0, 0);
     public TileType myTile = Tiles.DIRT;
+    public boolean noClipEnabled=false;
 
 
     private boolean isGrounded = false;
@@ -60,12 +61,16 @@ public class Player extends GameObject{
 
     @Override
     public void tick() {
+        Vector2Int mouseTile = Renderer.screenToWorldPos(Input.getMousePosition().toVector()).floorToInt();
+
         if(Input.reset.isPressed()){
             pos = new Vector2(0,-50);
 
         }
         if(Input.teleport.isPressed()){
-            pos = pos.sub(Input.getMousePosition().toVector());
+            pos = mouseTile.toVector();
+            System.out.println(Input.getMousePosition().x);
+            System.out.println(Input.getMousePosition().y);
 
         }
         if(Input.moveLeft.isDown()) {
@@ -75,9 +80,13 @@ public class Player extends GameObject{
         if(Input.moveRight.isDown()) {
             pos = pos.add(new Vector2(speed, 0.0).scale(Main.getDeltaTime()));
         }
+        if (Input.noClip.isPressed()) {
+            noClipEnabled=!noClipEnabled;
+        }
 
 
-        if (Input.noClip.isDown) {
+        if (noClipEnabled) {
+            speed=50;
             gravity = new Vector2(0, 0);
             if(Input.moveUp.isDown()) {
                 pos = pos.add(new Vector2(0, -speed).scale(Main.getDeltaTime()));
@@ -88,6 +97,7 @@ public class Player extends GameObject{
 
         }
         else{
+            speed=10;
             velocity = velocity.add(gravity.scale(Main.getDeltaTime()));
             velocity = velocity.withY(Math.min(velocity.y, terminalVelocity));
             pos = pos.add(velocity.scale(Main.getDeltaTime()));
@@ -102,7 +112,6 @@ public class Player extends GameObject{
             velocity = velocity.withY(-jumpPower);
         }
 
-        Vector2Int mouseTile = Renderer.screenToWorldPos(Input.getMousePosition().toVector()).floorToInt();
 
         if(Input.use.isPressed()){
             World.setMainTile(mouseTile, null);
