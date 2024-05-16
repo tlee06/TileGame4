@@ -11,6 +11,7 @@ public class ConstantImageTileRenderer<TileTypeT extends AbstractTileType<?>> ex
         this.image = image;
     }
 
+
     public ConstantImageTileRenderer(String path){
         try {
             InputStream resource = getClass().getResourceAsStream(path);

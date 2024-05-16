@@ -6,6 +6,7 @@ public class Player extends GameObject{
     private static final double ZOOM_SPEED = 0.03;
 
     public double zoom = 0.03;
+    public int goldCounter=0;
     public double speed = 10;
     public double terminalVelocity = 30;
     public double jumpPower = 10;
@@ -53,10 +54,15 @@ public class Player extends GameObject{
 
     @Override
     public void render(Renderer r) {
+        Font myFont=new Font("Arial",Font.BOLD,25);
+        r.graphics().setFont(myFont);
         //r.setColor(new Color(((float) Math.sin(Main.getTime()) + 1f)/2f,0f,0f));
         r.drawRectWorldSpace(pos.sub(size.scale(0.5)), size);
 
-        r.graphics().drawString("FPS: " + (1/Main.getUncappedDeltaTime()), 10, 10);
+        r.graphics().drawString("FPS: " + (1/Main.getUncappedDeltaTime()), 10, 20);
+
+        r.graphics().drawString("Gold " + goldCounter, 10, 200);
+
     }
 
     @Override
@@ -114,7 +120,13 @@ public class Player extends GameObject{
 
 
         if(Input.use.isPressed()){
-            World.setMainTile(mouseTile, null);
+            if (World.getMainTile(mouseTile)!=null&&World.getMainTile(mouseTile).equals(Tiles.TREASURE)){
+                World.setMainTile(mouseTile, null);
+                goldCounter+=1;
+            }
+            else {
+                World.setMainTile(mouseTile, null);
+            }
         }
         if(Input.chooseDirtBlockType.isPressed()){
             myTile=Tiles.DIRT;

@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class TileType extends AbstractTileType<TileType>{
     public final BackgroundTileType backgroundType;
 
@@ -14,6 +16,7 @@ public class TileType extends AbstractTileType<TileType>{
         super(renderer);
         this.backgroundType = new BackgroundTileType(bgRenderer, this);
     }
+
 
     public void processCollision(Collider collider, Chunk.Tilemap<TileType> tilemap, Vector2Int localPos){
         Vector2Int gPos = tilemap.getChunk().toGlobalPos(localPos);

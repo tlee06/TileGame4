@@ -12,6 +12,12 @@ public class TestTerrainGenerator extends TerrainGenerator{
         chunk.mainTilemap.setTile(localX, localY, main);
         chunk.backgroundTilemap.setTile(localX, localY, bg);
     }
+
+    @Override
+    public void setTreasureTile(Chunk chunk, int localX, int localY) {
+
+    }
+
     //    @Override
 //    public LayeredTileType getTile(int x, int y) {
 //        TileType main = null;

@@ -12,6 +12,7 @@ public class Chunk extends GameObject {
             return Chunk.this;
         }
 
+
         public TileTypeT getTile(int x, int y){
             return tiles[x][y];
         }

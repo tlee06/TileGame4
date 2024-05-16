@@ -17,6 +17,7 @@ public class World {
                 generator.setTile(chunk, x, y);
             }
         }
+        generator.setTreasureTile(chunk,(int)(Math.random()*Chunk.CHUNK_SIZE),(int)(Math.random()*Chunk.CHUNK_SIZE));
         return chunk;
     }
 

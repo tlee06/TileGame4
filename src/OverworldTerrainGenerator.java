@@ -30,6 +30,12 @@ public class OverworldTerrainGenerator extends TerrainGenerator {
         int y = chunk.toGlobalPosY(localY);
 
         double geologicalDepth = (y*yCoefficient) + mainNoise.sample(x, y);
+        System.out.println("gd:" +geologicalDepth+ " X:"+localX+ " Y:"+localY);
+        if((geologicalDepth<0)&&(geologicalDepth>-3)){
+            main =Tiles.GRASS;
+            bg = Tiles.STONE.backgroundType;
+
+        }
 
         if(geologicalDepth > 0) {
             main = Tiles.DIRT;
@@ -50,4 +56,18 @@ public class OverworldTerrainGenerator extends TerrainGenerator {
         chunk.mainTilemap.setTile(localX, localY, main);
         chunk.backgroundTilemap.setTile(localX, localY, bg);
     }
+    @Override
+    public void setTreasureTile(Chunk chunk, int localX, int localY) {
+        int x = chunk.toGlobalPosX(localX);
+        int y = chunk.toGlobalPosY(localY);
+
+        double geologicalDepth = (y*yCoefficient) + mainNoise.sample(x, y);
+        if(geologicalDepth>0) {
+            TileType main = Tiles.TREASURE;
+            chunk.mainTilemap.setTile(localX, localY, main);
+            chunk.backgroundTilemap.setTile(localX, localY, Tiles.STONE.backgroundType);
+        }
+
+    }
+
 }
