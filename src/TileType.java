@@ -2,15 +2,30 @@ import java.awt.*;
 
 public class TileType extends AbstractTileType<TileType>{
     public final BackgroundTileType backgroundType;
+    public boolean shouldCollide=true;
 
     private TileType(TileRenderer<TileType> renderer, BackgroundTileType backgroundType) {
         super(renderer);
         this.backgroundType = backgroundType;
+        this.shouldCollide=true;
+
+    }
+    private TileType(TileRenderer<TileType> renderer, BackgroundTileType backgroundType,boolean shouldCollide) {
+        super(renderer);
+        this.backgroundType = backgroundType;
+        this.shouldCollide=shouldCollide;
+
     }
 
     public TileType(TileRenderer<TileType> renderer) {
         this(renderer, (BackgroundTileType) null);
     }
+    public TileType(TileRenderer<TileType> renderer,boolean shouldCollide) {
+        this(renderer, (BackgroundTileType) null);
+        this.shouldCollide=shouldCollide;
+
+    }
+
 
     public TileType(TileRenderer<TileType> renderer, TileRenderer<BackgroundTileType> bgRenderer){
         super(renderer);
@@ -19,6 +34,9 @@ public class TileType extends AbstractTileType<TileType>{
 
 
     public void processCollision(Collider collider, Chunk.Tilemap<TileType> tilemap, Vector2Int localPos){
+        if(!shouldCollide){
+            return;
+        }
         Vector2Int gPos = tilemap.getChunk().toGlobalPos(localPos);
         Vector2 bCenter = new Vector2(gPos.x + 0.5f, gPos.y + 0.5f);
         Vector2 bBottomLeft = new Vector2(gPos.x, gPos.y + 1);

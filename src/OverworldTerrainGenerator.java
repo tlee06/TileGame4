@@ -5,6 +5,7 @@ public class OverworldTerrainGenerator extends TerrainGenerator {
     private final double caveWidth = 2;
     private final double caveDepthStart = 10;
     private final double caveDepthEnd = 30;
+    private final double grassSpawnRate=.3;
 
     public final int seed;
 
@@ -30,13 +31,15 @@ public class OverworldTerrainGenerator extends TerrainGenerator {
         int y = chunk.toGlobalPosY(localY);
 
         double geologicalDepth = (y*yCoefficient) + mainNoise.sample(x, y);
-        System.out.println("gd:" +geologicalDepth+ " X:"+localX+ " Y:"+localY);
         if((geologicalDepth<0)&&(geologicalDepth>-3)){
             main =Tiles.GRASS;
             bg = Tiles.STONE.backgroundType;
 
         }
+        if((Math.random()>grassSpawnRate)&&((geologicalDepth<-3)&&(geologicalDepth>-4))){
+            main=Tiles.GRASSWEEDS;
 
+        }
         if(geologicalDepth > 0) {
             main = Tiles.DIRT;
             bg = Tiles.DIRT.backgroundType;

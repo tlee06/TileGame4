@@ -117,7 +117,9 @@ public class Chunk extends GameObject {
                 TileType tile = mainTilemap.getTile(x, y);
 
                 //TODO: account for transparency in foreground tile types
-                if(tile == null && bgTile != null) bgTile.render(r, backgroundTilemap, x, y);
+                if((tile == null) && (bgTile != null)) {
+                    bgTile.render(r, backgroundTilemap, x, y);
+                }
                 //if(tile != null) tile.render(r, mainTilemap, x, y);
             }
         }

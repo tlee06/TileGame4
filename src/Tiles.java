@@ -16,7 +16,10 @@ public class Tiles {
             new ConstantImageTileRenderer<>("./images/newgrass.png"),
             new ConstantImageTileRenderer<>("./images/stone_single_bg.png")
     );
+    public static final TileType GRASSWEEDS = new TileType(
+            new ConstantImageTileRenderer<>("./images/grassWeed.png"),false
 
+    );
 
 
 
