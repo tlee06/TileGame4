@@ -45,4 +45,10 @@ public class Util {
     public static double clamp(double val, double min, double max) {
         return Math.max(min, Math.min(max, val));
     }
+    public static boolean mouseClickWithinRange(int x, int y, int range){
+        if(Math.pow(x,2)+Math.pow(y,2)<=(int)(Math.pow(range,2))){
+            return true;
+        }
+        return false;
+    }
 }

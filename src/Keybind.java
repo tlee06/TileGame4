@@ -2,6 +2,8 @@ public class Keybind {
     protected boolean pressed;
     protected boolean isDown;
     protected boolean isDownPrev;
+    Vector2Int mouseTile = Renderer.screenToWorldPos(Input.getMousePosition().toVector()).floorToInt();
+
 
     public Keybind(){
         //makes the update and preUpdate methods called every frame and at the beginning of

@@ -68,10 +68,12 @@ public class Player extends GameObject{
     @Override
     public void tick() {
         Vector2Int mouseTile = Renderer.screenToWorldPos(Input.getMousePosition().toVector()).floorToInt();
+        Vector2Int mouseTile1 = Renderer.screenToWorldPos(Input.getMousePosition().toVector()).floorToInt();
+
+
 
         if(Input.reset.isPressed()){
             pos = new Vector2(0,-50);
-
         }
         if(Input.teleport.isPressed()){
             pos = mouseTile.toVector();
@@ -81,6 +83,7 @@ public class Player extends GameObject{
         }
         if(Input.moveLeft.isDown()) {
             pos = pos.add(new Vector2(-speed, 0.0).scale(Main.getDeltaTime()));
+            System.out.println("X:"+pos.x+" Y:"+pos.y);
         }
 
         if(Input.moveRight.isDown()) {
@@ -120,12 +123,16 @@ public class Player extends GameObject{
 
 
         if(Input.use.isPressed()){
-            if (World.getMainTile(mouseTile)!=null&&World.getMainTile(mouseTile).equals(Tiles.TREASURE)){
-                World.setMainTile(mouseTile, null);
-                goldCounter+=1;
-            }
-            else {
-                World.setMainTile(mouseTile, null);
+            if((Util.mouseClickWithinRange((int)(mouseTile1.toVector().x-pos.x),(int)(mouseTile1.toVector().y-pos.y),10))||noClipEnabled) {
+                if(Input.placeBlock.isPressed()){
+                    World.setMainTile(mouseTile,myTile);
+                }
+                if (World.getMainTile(mouseTile1) != null && World.getMainTile(mouseTile).equals(Tiles.TREASURE)) {
+                    World.setMainTile(mouseTile1, null);
+                    goldCounter += 1;
+                } else {
+                    World.setMainTile(mouseTile1, null);
+                }
             }
         }
         if(Input.chooseDirtBlockType.isPressed()){
@@ -134,9 +141,7 @@ public class Player extends GameObject{
         if(Input.chooseStoneBlockType.isPressed()){
             myTile=Tiles.STONE;
         }
-        if(Input.placeBlock.isPressed()){
-            World.setMainTile(mouseTile,myTile);
-        }
+
 
         if(Input.zoomIn.isDown()){
             zoom += ZOOM_SPEED * Main.getDeltaTime();
