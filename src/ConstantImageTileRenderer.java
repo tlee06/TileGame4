@@ -32,4 +32,7 @@ public class ConstantImageTileRenderer<TileTypeT extends AbstractTileType<?>> ex
                 1,1
         );
     }
+    public Image getImage() {
+        return image;
+    }
 }

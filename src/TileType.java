@@ -3,6 +3,7 @@ import java.awt.*;
 public class TileType extends AbstractTileType<TileType>{
     public final BackgroundTileType backgroundType;
     public boolean shouldCollide=true;
+    private Image image;
 
     private TileType(TileRenderer<TileType> renderer, BackgroundTileType backgroundType) {
         super(renderer);

@@ -3,6 +3,8 @@ import java.awt.image.BufferStrategy;
 public class GameCanvas extends Canvas {
     private final BufferStrategy bs;
 
+
+
     public GameCanvas(Window frame){
         frame.add(this);
         createBufferStrategy(2);
@@ -21,8 +23,10 @@ public class GameCanvas extends Canvas {
             g.render(r);
         }
 
+
         graphics.dispose();
 
         bs.show();
     }
+
 }

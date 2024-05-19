@@ -18,8 +18,19 @@ public class Tiles {
     );
     public static final TileType GRASSWEEDS = new TileType(
             new ConstantImageTileRenderer<>("./images/grassWeed.png"),false
-
     );
+    public static ConstantImageTileRenderer getHotbarConstantImageTileRenderer(){
+        return new ConstantImageTileRenderer<>("./images/hotbar.png");
+    }
+    public static ConstantImageTileRenderer getDirtConstantImageTileRenderer(){
+        return new ConstantImageTileRenderer<>("./images/newRedDirt.png");
+    }
+    public static ConstantImageTileRenderer getStoneConstantImageTileRenderer(){
+        return new ConstantImageTileRenderer<>("./images/stone_single.png");
+    }
+    public static ConstantImageTileRenderer getHotbarSelectorConstantImageTileRenderer(){
+        return new ConstantImageTileRenderer<>("./images/hotbar_selection.png");
+    }
 
 
 

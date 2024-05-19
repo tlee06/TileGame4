@@ -12,6 +12,7 @@ public class Main {
     private static double deltaTime;
     private static long currentTime;
 
+
     public static void main(String[] args) {
         //System.setProperty("sun.java2d.opengl", "true");
 
@@ -29,12 +30,14 @@ public class Main {
         //update object list to include initial objects
         GameObject.updateObjectList();
 
+
         mainLoop();
     }
 
     private static void mainLoop(){
         update();
         render();
+
 
         EventQueue.invokeLater(Main::mainLoop);
     }

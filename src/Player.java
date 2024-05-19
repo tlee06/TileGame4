@@ -19,6 +19,14 @@ public class Player extends GameObject{
 
 
     private boolean isGrounded = false;
+    private static Image hotbar;
+    private static Image hotbarSelector;
+
+    private static Image dirt;
+    private static Image stone;
+
+
+
 
     private final Collider collider = new Collider() {
         @Override
@@ -54,6 +62,7 @@ public class Player extends GameObject{
 
     @Override
     public void render(Renderer r) {
+
         Font myFont=new Font("Arial",Font.BOLD,25);
         r.graphics().setFont(myFont);
         //r.setColor(new Color(((float) Math.sin(Main.getTime()) + 1f)/2f,0f,0f));
@@ -62,13 +71,30 @@ public class Player extends GameObject{
         r.graphics().drawString("FPS: " + (1/Main.getUncappedDeltaTime()), 10, 20);
 
         r.graphics().drawString("Gold " + goldCounter, 10, 200);
+        hotbar=Tiles.getHotbarConstantImageTileRenderer().getImage();
+        dirt=Tiles.getDirtConstantImageTileRenderer().getImage();
+        stone=Tiles.getStoneConstantImageTileRenderer().getImage();
+        hotbarSelector=Tiles.getHotbarSelectorConstantImageTileRenderer().getImage();
+
+
+
+        r.drawImage(hotbar,600,900,728,88);
+        r.drawImage(dirt,612,910,64,64);
+        r.drawImage(stone,692,910,64,64);
+        if(myTile.equals(Tiles.DIRT)){
+            r.drawImage(hotbarSelector,595,895,96,96);
+        }
+        else{
+            r.drawImage(hotbarSelector,675,895,96,96);
+        }
+
+
 
     }
 
     @Override
     public void tick() {
         Vector2Int mouseTile = Renderer.screenToWorldPos(Input.getMousePosition().toVector()).floorToInt();
-        Vector2Int mouseTile1 = Renderer.screenToWorldPos(Input.getMousePosition().toVector()).floorToInt();
 
 
 
@@ -123,17 +149,19 @@ public class Player extends GameObject{
 
 
         if(Input.use.isPressed()){
-            if((Util.mouseClickWithinRange((int)(mouseTile1.toVector().x-pos.x),(int)(mouseTile1.toVector().y-pos.y),10))||noClipEnabled) {
-                if(Input.placeBlock.isPressed()){
-                    World.setMainTile(mouseTile,myTile);
-                }
-                if (World.getMainTile(mouseTile1) != null && World.getMainTile(mouseTile).equals(Tiles.TREASURE)) {
-                    World.setMainTile(mouseTile1, null);
+            if((Util.mouseClickWithinRange((int)(mouseTile.toVector().x-pos.x),(int)(mouseTile.toVector().y-pos.y),10))||noClipEnabled) {
+
+                if (World.getMainTile(mouseTile) != null && World.getMainTile(mouseTile).equals(Tiles.TREASURE)) {
+                    World.setMainTile(mouseTile, null);
                     goldCounter += 1;
                 } else {
-                    World.setMainTile(mouseTile1, null);
+                    World.setMainTile(mouseTile, null);
                 }
             }
+        }
+        if((Input.placeBlock.isPressed()&&(Util.mouseClickWithinRange((int)(mouseTile.toVector().x-pos.x),(int)(mouseTile.toVector().y-pos.y),10)))||Input.placeBlock.isPressed()&&noClipEnabled){
+            World.setMainTile(mouseTile,myTile);
+            System.out.println("yes");
         }
         if(Input.chooseDirtBlockType.isPressed()){
             myTile=Tiles.DIRT;
