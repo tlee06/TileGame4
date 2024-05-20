@@ -1,7 +1,7 @@
 public class Keybind {
-    protected boolean pressed;
-    protected boolean isDown;
-    protected boolean isDownPrev;
+    protected boolean pressed; // if key is currently down right now
+    protected boolean isDown; //if it was down in the beginning of the current frame
+    protected boolean isDownPrev; //if it was down in the beginning of the previous frame
     Vector2Int mouseTile = Renderer.screenToWorldPos(Input.getMousePosition().toVector()).floorToInt();
 
 
@@ -17,7 +17,7 @@ public class Keybind {
     }
 
 
-    public boolean isPressed() {
+    public boolean isPressedForOneFrame() {
         return isDown && !isDownPrev;
     }
 

@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 
 public class Player extends GameObject{
@@ -98,10 +97,10 @@ public class Player extends GameObject{
 
 
 
-        if(Input.reset.isPressed()){
+        if(Input.reset.isPressedForOneFrame()){
             pos = new Vector2(0,-50);
         }
-        if(Input.teleport.isPressed()){
+        if(Input.teleport.isPressedForOneFrame()){
             pos = mouseTile.toVector();
             System.out.println(Input.getMousePosition().x);
             System.out.println(Input.getMousePosition().y);
@@ -115,7 +114,7 @@ public class Player extends GameObject{
         if(Input.moveRight.isDown()) {
             pos = pos.add(new Vector2(speed, 0.0).scale(Main.getDeltaTime()));
         }
-        if (Input.noClip.isPressed()) {
+        if (Input.noClip.isPressedForOneFrame()) {
             noClipEnabled=!noClipEnabled;
         }
 
@@ -143,12 +142,12 @@ public class Player extends GameObject{
 
         }
 
-        if(Input.jump.isPressed() && isGrounded){
+        if(Input.jump.isPressedForOneFrame() && isGrounded){
             velocity = velocity.withY(-jumpPower);
         }
 
 
-        if(Input.use.isPressed()){
+        if(Input.use.isPressedForOneFrame()){
             if((Util.mouseClickWithinRange((int)(mouseTile.toVector().x-pos.x),(int)(mouseTile.toVector().y-pos.y),10))||noClipEnabled) {
 
                 if (World.getMainTile(mouseTile) != null && World.getMainTile(mouseTile).equals(Tiles.TREASURE)) {
@@ -159,14 +158,14 @@ public class Player extends GameObject{
                 }
             }
         }
-        if((Input.placeBlock.isPressed()&&(Util.mouseClickWithinRange((int)(mouseTile.toVector().x-pos.x),(int)(mouseTile.toVector().y-pos.y),10)))||Input.placeBlock.isPressed()&&noClipEnabled){
+        if((Input.placeBlock.isPressedForOneFrame()&&(Util.mouseClickWithinRange((int)(mouseTile.toVector().x-pos.x),(int)(mouseTile.toVector().y-pos.y),10)))||Input.placeBlock.isPressedForOneFrame()&&noClipEnabled){
             World.setMainTile(mouseTile,myTile);
             System.out.println("yes");
         }
-        if(Input.chooseDirtBlockType.isPressed()){
+        if(Input.chooseDirtBlockType.isPressedForOneFrame()){
             myTile=Tiles.DIRT;
         }
-        if(Input.chooseStoneBlockType.isPressed()){
+        if(Input.chooseStoneBlockType.isPressedForOneFrame()){
             myTile=Tiles.STONE;
         }
 
