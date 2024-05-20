@@ -43,7 +43,9 @@ public class Util {
         return clamp((t-a)/(b-a), 0, 1);
     }
     public static double clamp(double val, double min, double max) {
-        return Math.max(min, Math.min(max, val));
+        return Math.max(min, Math.min(max, val)); //rationale: looked up what Math.clamp does 
+        // realized it returns the value if it is in the range, and returns the min or max if it isn't
+        // we implemented this using Math.max and Math.min 
     }
     public static boolean mouseClickWithinRange(int x, int y, int range){
         if(Math.pow(x,2)+Math.pow(y,2)<=(int)(Math.pow(range,2))){
