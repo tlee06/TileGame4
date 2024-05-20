@@ -18,13 +18,13 @@ public class MouseKeybind extends Keybind{
 
     public void keyPressed(MouseEvent e) {
         if(e.getButton() == button){
-            pressed = true;
+            isDown = true;
         }
     }
 
     public void keyReleased(MouseEvent e) {
         if(e.getButton() == button){
-            pressed = false;
+            isDown = false;
         }
     }
 }

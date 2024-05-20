@@ -106,12 +106,12 @@ public class Player extends GameObject{
             System.out.println(Input.getMousePosition().y);
 
         }
-        if(Input.moveLeft.isDown()) {
+        if(Input.moveLeft.isDownAtCurrentFrame()) {
             pos = pos.add(new Vector2(-speed, 0.0).scale(Main.getDeltaTime()));
             System.out.println("X:"+pos.x+" Y:"+pos.y);
         }
 
-        if(Input.moveRight.isDown()) {
+        if(Input.moveRight.isDownAtCurrentFrame()) {
             pos = pos.add(new Vector2(speed, 0.0).scale(Main.getDeltaTime()));
         }
         if (Input.noClip.isPressedForOneFrame()) {
@@ -122,10 +122,10 @@ public class Player extends GameObject{
         if (noClipEnabled) {
             speed=50;
             gravity = new Vector2(0, 0);
-            if(Input.moveUp.isDown()) {
+            if(Input.moveUp.isDownAtCurrentFrame()) {
                 pos = pos.add(new Vector2(0, -speed).scale(Main.getDeltaTime()));
             }
-            if(Input.moveDown.isDown()) {
+            if(Input.moveDown.isDownAtCurrentFrame()) {
                 pos = pos.add(new Vector2(0, speed).scale(Main.getDeltaTime()));
             }
 
@@ -170,11 +170,11 @@ public class Player extends GameObject{
         }
 
 
-        if(Input.zoomIn.isDown()){
+        if(Input.zoomIn.isDownAtCurrentFrame()){
             zoom += ZOOM_SPEED * Main.getDeltaTime();
         }
 
-        if(Input.zoomOut.isDown()){
+        if(Input.zoomOut.isDownAtCurrentFrame()){
             zoom -= ZOOM_SPEED * Main.getDeltaTime();
         }
 
