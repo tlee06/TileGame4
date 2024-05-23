@@ -5,19 +5,20 @@ public class Player extends GameObject{
     private static final double ZOOM_SPEED = 0.03;
 
     public double zoom = 0.03;
-    public int goldCounter=0;
-    public double speed = 10;
+    public int goldCounter=0; //added for gold
+    public double speed = 10; //changed for noclip
     public double terminalVelocity = 30;
     public double jumpPower = 10;
-    public Vector2 gravity = new Vector2(0, 30);
+    public Vector2 gravity = new Vector2(0, 30); //changed for noclip
     public Vector2 size = new Vector2(0.8, 1.8);
     public Vector2 pos = new Vector2(0,-50);
     public Vector2 velocity = new Vector2(0, 0);
-    public TileType myTile = Tiles.DIRT;
-    public boolean noClipEnabled=false;
+    public TileType myTile = Tiles.DIRT;//added for hotbar/red dirt
+    public boolean noClipEnabled=false; //added for noclip
 
 
     private boolean isGrounded = false;
+    //static Image variables were added for hotbar
     private static Image hotbar;
     private static Image hotbarSelector;
 
@@ -61,7 +62,7 @@ public class Player extends GameObject{
 
     @Override
     public void render(Renderer r) {
-
+        //added for hotbar images and gold 
         Font myFont=new Font("Arial",Font.BOLD,25);
         r.graphics().setFont(myFont);
         //r.setColor(new Color(((float) Math.sin(Main.getTime()) + 1f)/2f,0f,0f));
@@ -97,10 +98,10 @@ public class Player extends GameObject{
 
 
 
-        if(Input.reset.isPressedForOneFrame()){
+        if(Input.reset.isPressedForOneFrame()){ //added for reset and teleport
             pos = new Vector2(0,-50);
         }
-        if(Input.teleport.isPressedForOneFrame()){
+        if(Input.teleport.isPressedForOneFrame()){ //added for reset and teleport
             pos = mouseTile.toVector();
             System.out.println(Input.getMousePosition().x);
             System.out.println(Input.getMousePosition().y);
@@ -114,12 +115,12 @@ public class Player extends GameObject{
         if(Input.moveRight.isDownAtCurrentFrame()) {
             pos = pos.add(new Vector2(speed, 0.0).scale(Main.getDeltaTime()));
         }
-        if (Input.noClip.isPressedForOneFrame()) {
+        if (Input.noClip.isPressedForOneFrame()) { //added for noclip
             noClipEnabled=!noClipEnabled;
         }
 
 
-        if (noClipEnabled) {
+        if (noClipEnabled) { //added for noclip
             speed=50;
             gravity = new Vector2(0, 0);
             if(Input.moveUp.isDownAtCurrentFrame()) {
@@ -130,15 +131,15 @@ public class Player extends GameObject{
             }
 
         }
-        else{
-            speed=10;
+        else{ 
+            speed=10; //added for noclip
             velocity = velocity.add(gravity.scale(Main.getDeltaTime()));
             velocity = velocity.withY(Math.min(velocity.y, terminalVelocity));
             pos = pos.add(velocity.scale(Main.getDeltaTime()));
 
             isGrounded = false;
             collider.processCollisionWithTerrain();
-            gravity = new Vector2(0, 30);
+            gravity = new Vector2(0, 30); //added for noclip
 
         }
 
@@ -148,9 +149,9 @@ public class Player extends GameObject{
 
 
         if(Input.use.isPressedForOneFrame()){
-            if((Util.mouseClickWithinRange((int)(mouseTile.toVector().x-pos.x),(int)(mouseTile.toVector().y-pos.y),10))||noClipEnabled) {
+            if((Util.mouseClickWithinRange((int)(mouseTile.toVector().x-pos.x),(int)(mouseTile.toVector().y-pos.y),10))||noClipEnabled) { //added for gold/destroying blocks
 
-                if (World.getMainTile(mouseTile) != null && World.getMainTile(mouseTile).equals(Tiles.TREASURE)) {
+                if (World.getMainTile(mouseTile) != null && World.getMainTile(mouseTile).equals(Tiles.TREASURE)) { //added for gold
                     World.setMainTile(mouseTile, null);
                     goldCounter += 1;
                 } else {
@@ -158,14 +159,15 @@ public class Player extends GameObject{
                 }
             }
         }
+        //added for placeBlock
         if((Input.placeBlock.isPressedForOneFrame()&&(Util.mouseClickWithinRange((int)(mouseTile.toVector().x-pos.x),(int)(mouseTile.toVector().y-pos.y),10)))||Input.placeBlock.isPressedForOneFrame()&&noClipEnabled){
             World.setMainTile(mouseTile,myTile);
             System.out.println("yes");
         }
-        if(Input.chooseDirtBlockType.isPressedForOneFrame()){
+        if(Input.chooseDirtBlockType.isPressedForOneFrame()){//added for hotbar
             myTile=Tiles.DIRT;
         }
-        if(Input.chooseStoneBlockType.isPressedForOneFrame()){
+        if(Input.chooseStoneBlockType.isPressedForOneFrame()){//added for hotbar
             myTile=Tiles.STONE;
         }
 
