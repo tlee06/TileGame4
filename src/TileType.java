@@ -2,28 +2,28 @@ import java.awt.*;
 
 public class TileType extends AbstractTileType<TileType>{
     public final BackgroundTileType backgroundType;
-    public boolean shouldCollide=true;
+    public boolean shouldCollide=true; //added for grass
     private Image image;
 
     private TileType(TileRenderer<TileType> renderer, BackgroundTileType backgroundType) {
         super(renderer);
         this.backgroundType = backgroundType;
-        this.shouldCollide=true;
+        this.shouldCollide=true; //added for grass
 
     }
-    private TileType(TileRenderer<TileType> renderer, BackgroundTileType backgroundType,boolean shouldCollide) {
+    private TileType(TileRenderer<TileType> renderer, BackgroundTileType backgroundType,boolean shouldCollide) { //changed for grass
         super(renderer);
         this.backgroundType = backgroundType;
-        this.shouldCollide=shouldCollide;
+        this.shouldCollide=shouldCollide; //added for grass
 
     }
 
     public TileType(TileRenderer<TileType> renderer) {
         this(renderer, (BackgroundTileType) null);
     }
-    public TileType(TileRenderer<TileType> renderer,boolean shouldCollide) {
+    public TileType(TileRenderer<TileType> renderer,boolean shouldCollide) { //changed for grass
         this(renderer, (BackgroundTileType) null);
-        this.shouldCollide=shouldCollide;
+        this.shouldCollide=shouldCollide; //added for grass
 
     }
 
@@ -35,7 +35,7 @@ public class TileType extends AbstractTileType<TileType>{
 
 
     public void processCollision(Collider collider, Chunk.Tilemap<TileType> tilemap, Vector2Int localPos){
-        if(!shouldCollide){
+        if(!shouldCollide){ //added for grass
             return;
         }
         Vector2Int gPos = tilemap.getChunk().toGlobalPos(localPos);
