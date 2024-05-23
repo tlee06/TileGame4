@@ -9,8 +9,8 @@ public class Input {
     public static Keybind jump = new KeyboardKeybind(KeyEvent.VK_SPACE);
     public static Keybind zoomIn = new KeyboardKeybind(KeyEvent.VK_EQUALS);
     public static Keybind zoomOut = new KeyboardKeybind(KeyEvent.VK_MINUS);
-    public static Keybind chooseDirtBlockType = new KeyboardKeybind(KeyEvent.VK_1); //added 
-    public static Keybind chooseStoneBlockType = new KeyboardKeybind(KeyEvent.VK_2);//added
+    public static Keybind chooseDirtBlockType = new KeyboardKeybind(KeyEvent.VK_1); //added for hotbar
+    public static Keybind chooseStoneBlockType = new KeyboardKeybind(KeyEvent.VK_2);//added for hotbar
     public static Keybind noClip = new KeyboardKeybind(KeyEvent.VK_N); //added for noclip
     public static Keybind moveUp = new KeyboardKeybind(KeyEvent.VK_W); //added for noclip
     public static Keybind moveDown = new KeyboardKeybind(KeyEvent.VK_S);//added for noclip
@@ -21,7 +21,7 @@ public class Input {
 
 
     public static Keybind placeBlock = new MouseKeybind(MouseEvent.BUTTON3);//added for placing blocks
-    public static Keybind use = new MouseKeybind(MouseEvent.BUTTON1);//added for placing blocks
+    public static Keybind use = new MouseKeybind(MouseEvent.BUTTON1);
 
 
 
