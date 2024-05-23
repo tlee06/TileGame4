@@ -5,7 +5,7 @@ public class Player extends GameObject{
     private static final double ZOOM_SPEED = 0.03;
 
     public double zoom = 0.03;
-    public int goldCounter=0; //added for gold
+    public int goldCounter=0; //added for gold and treasure chest
     public double speed = 10; //changed for noclip
     public double terminalVelocity = 30;
     public double jumpPower = 10;
@@ -62,14 +62,16 @@ public class Player extends GameObject{
 
     @Override
     public void render(Renderer r) {
-        //added for hotbar images and gold 
+        //added for hotbar and gold/treasure chest
         Font myFont=new Font("Arial",Font.BOLD,25);
         r.graphics().setFont(myFont);
+        
         //r.setColor(new Color(((float) Math.sin(Main.getTime()) + 1f)/2f,0f,0f));
         r.drawRectWorldSpace(pos.sub(size.scale(0.5)), size);
 
         r.graphics().drawString("FPS: " + (1/Main.getUncappedDeltaTime()), 10, 20);
-
+        
+        //added for hotbar and gold/treasure chest
         r.graphics().drawString("Gold " + goldCounter, 10, 200);
         hotbar=Tiles.getHotbarConstantImageTileRenderer().getImage();
         dirt=Tiles.getDirtConstantImageTileRenderer().getImage();
@@ -77,7 +79,7 @@ public class Player extends GameObject{
         hotbarSelector=Tiles.getHotbarSelectorConstantImageTileRenderer().getImage();
 
 
-
+        //added for hotbar 
         r.drawImage(hotbar,600,900,728,88);
         r.drawImage(dirt,612,910,64,64);
         r.drawImage(stone,692,910,64,64);
