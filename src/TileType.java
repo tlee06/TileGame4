@@ -11,7 +11,8 @@ public class TileType extends AbstractTileType<TileType>{
         this.shouldCollide=true; //added for grass
 
     }
-    private TileType(TileRenderer<TileType> renderer, BackgroundTileType backgroundType,boolean shouldCollide) { //changed for grass
+    private TileType(TileRenderer<TileType> renderer, BackgroundTileType backgroundType,
+                     boolean shouldCollide) { //changed for grass
         super(renderer);
         this.backgroundType = backgroundType;
         this.shouldCollide=shouldCollide; //added for grass
