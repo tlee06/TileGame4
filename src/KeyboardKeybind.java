@@ -18,13 +18,13 @@ public class KeyboardKeybind extends Keybind {
 
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == keyCode){
-            isDown = true;
+            pressed = true;
         }
     }
 
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == keyCode){
-            isDown = false;
+            pressed = false;
         }
     }
 }

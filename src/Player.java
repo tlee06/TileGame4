@@ -1,10 +1,4 @@
 import java.awt.*;
-import java.lang.reflect.Array;
-import java.security.Key;
-import java.util.ArrayList;
-import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 public class Player extends GameObject{
     public static Player instance;
@@ -103,17 +97,11 @@ public class Player extends GameObject{
     @Override
     public void tick() {
         Vector2Int mouseTile = Renderer.screenToWorldPos(Input.getMousePosition().toVector()).floorToInt();
-
-
-
-
-            if(Input.reset.isPressedForOneFrame()){
+        if(Input.reset.isPressedForOneFrame()){
             pos = new Vector2(0,-50);
         }
         if(Input.teleport.isPressedForOneFrame()){
             pos = mouseTile.toVector();
-
-
         }
         if(Input.moveLeft.isDown()) {
             pos = pos.add(new Vector2(-speed, 0.0).scale(Main.getDeltaTime()));
@@ -125,8 +113,6 @@ public class Player extends GameObject{
         if (Input.noClip.isPressedForOneFrame()) {
             noClipEnabled=!noClipEnabled;
         }
-
-
         if (noClipEnabled) {
             speed=50;
             gravity = new Vector2(0, 0);
@@ -136,7 +122,6 @@ public class Player extends GameObject{
             if(Input.moveDown.isDown()) {
                 pos = pos.add(new Vector2(0, speed).scale(Main.getDeltaTime()));
             }
-
         }
         else{
             speed=10;
