@@ -14,7 +14,7 @@ public class TestTerrainGenerator extends TerrainGenerator{
     }
 
     @Override
-    public void setTreasureTile(Chunk chunk, int localX, int localY) {
+    public void setTreasureTile(Chunk chunk, int localX, int localY) { //added for gold and treasure chest
 
     }
 

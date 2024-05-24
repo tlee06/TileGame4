@@ -9,28 +9,18 @@ public class Input {
     public static Keybind jump = new KeyboardKeybind(KeyEvent.VK_SPACE);
     public static Keybind zoomIn = new KeyboardKeybind(KeyEvent.VK_EQUALS);
     public static Keybind zoomOut = new KeyboardKeybind(KeyEvent.VK_MINUS);
-    public static Keybind chooseDirtBlockType = new KeyboardKeybind(KeyEvent.VK_1);
-    public static Keybind chooseStoneBlockType = new KeyboardKeybind(KeyEvent.VK_2);
-    public static Keybind noClip = new KeyboardKeybind(KeyEvent.VK_N);
-    public static Keybind moveUp = new KeyboardKeybind(KeyEvent.VK_W);
-    public static Keybind moveDown = new KeyboardKeybind(KeyEvent.VK_S);
-    public static Keybind reset = new KeyboardKeybind(KeyEvent.VK_R);
-    public static Keybind teleport = new KeyboardKeybind(KeyEvent.VK_T);
-    public static Keybind up = new KeyboardKeybind(KeyEvent.VK_KP_UP);
-    public static Keybind down = new KeyboardKeybind(KeyEvent.VK_KP_DOWN);
-
-    public static Keybind left = new KeyboardKeybind(KeyEvent.VK_KP_LEFT);
-
-    public static Keybind right = new KeyboardKeybind(KeyEvent.VK_KP_RIGHT);
-    public static Keybind b = new KeyboardKeybind(KeyEvent.VK_B);
+    public static Keybind chooseDirtBlockType = new KeyboardKeybind(KeyEvent.VK_1); //added for hotbar
+    public static Keybind chooseStoneBlockType = new KeyboardKeybind(KeyEvent.VK_2);//added for hotbar
+    public static Keybind noClip = new KeyboardKeybind(KeyEvent.VK_N); //added for noclip
+    public static Keybind moveUp = new KeyboardKeybind(KeyEvent.VK_W); //added for noclip
+    public static Keybind moveDown = new KeyboardKeybind(KeyEvent.VK_S);//added for noclip
+    public static Keybind reset = new KeyboardKeybind(KeyEvent.VK_R);//added for reset and teleport
+    public static Keybind teleport = new KeyboardKeybind(KeyEvent.VK_T);//added for reset and teleport
 
 
 
 
-
-
-
-    public static Keybind placeBlock = new MouseKeybind(MouseEvent.BUTTON3);
+    public static Keybind placeBlock = new MouseKeybind(MouseEvent.BUTTON3);//added for placing blocks
     public static Keybind use = new MouseKeybind(MouseEvent.BUTTON1);
 
 

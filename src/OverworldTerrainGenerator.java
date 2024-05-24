@@ -5,7 +5,7 @@ public class OverworldTerrainGenerator extends TerrainGenerator {
     private final double caveWidth = 2;
     private final double caveDepthStart = 10;
     private final double caveDepthEnd = 30;
-    private final double grassSpawnRate=.3;
+    private final double grassSpawnRate=.3; //added for grass
 
     public final int seed;
 
@@ -31,12 +31,12 @@ public class OverworldTerrainGenerator extends TerrainGenerator {
         int y = chunk.toGlobalPosY(localY);
 
         double geologicalDepth = (y*yCoefficient) + mainNoise.sample(x, y);
-        if((geologicalDepth<0)&&(geologicalDepth>-3)){
-            main =Tiles.GRASS;
+        if((geologicalDepth<0)&&(geologicalDepth>-3)){ //added for grass
+            main =Tiles.GRASS; 
             bg = Tiles.STONE.backgroundType;
 
         }
-        if((Math.random()>grassSpawnRate)&&((geologicalDepth<-3)&&(geologicalDepth>-4))){
+        if((Math.random()>grassSpawnRate)&&((geologicalDepth<-3)&&(geologicalDepth>-4))){ //added for grass
             main=Tiles.GRASSWEEDS;
 
         }
@@ -60,7 +60,7 @@ public class OverworldTerrainGenerator extends TerrainGenerator {
         chunk.backgroundTilemap.setTile(localX, localY, bg);
     }
     @Override
-    public void setTreasureTile(Chunk chunk, int localX, int localY) {
+    public void setTreasureTile(Chunk chunk, int localX, int localY) { //added for gold and treasure chest
         int x = chunk.toGlobalPosX(localX);
         int y = chunk.toGlobalPosY(localY);
 

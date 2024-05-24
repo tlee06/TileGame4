@@ -1,11 +1,8 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 public class KeyboardKeybind extends Keybind {
     private final int keyCode;
-
-
 
     public KeyboardKeybind(int keyCode){
         this.keyCode = keyCode;
@@ -21,20 +18,13 @@ public class KeyboardKeybind extends Keybind {
 
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == keyCode){
-            pressed = true;
+            isDown = true;
         }
-
     }
 
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == keyCode){
-            pressed = false;
-            System.out.println(e.getKeyCode());
-
+            isDown = false;
         }
-
     }
-
-
-
 }
