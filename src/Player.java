@@ -1,4 +1,10 @@
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.security.Key;
+import java.util.ArrayList;
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 public class Player extends GameObject{
     public static Player instance;
@@ -14,7 +20,8 @@ public class Player extends GameObject{
     public Vector2 pos = new Vector2(0,-50);
     public Vector2 velocity = new Vector2(0, 0);
     public TileType myTile = Tiles.DIRT;
-    public boolean noClipEnabled=false;
+    private boolean noClipEnabled=false;
+
 
 
     private boolean isGrounded = false;
@@ -23,6 +30,8 @@ public class Player extends GameObject{
 
     private static Image dirt;
     private static Image stone;
+
+
 
 
 
@@ -76,10 +85,10 @@ public class Player extends GameObject{
         hotbarSelector=Tiles.getHotbarSelectorConstantImageTileRenderer().getImage();
 
 
-
         r.drawImage(hotbar,600,900,728,88);
         r.drawImage(dirt,612,910,64,64);
         r.drawImage(stone,692,910,64,64);
+
         if(myTile.equals(Tiles.DIRT)){
             r.drawImage(hotbarSelector,595,895,96,96);
         }
@@ -97,18 +106,17 @@ public class Player extends GameObject{
 
 
 
-        if(Input.reset.isPressedForOneFrame()){
+
+            if(Input.reset.isPressedForOneFrame()){
             pos = new Vector2(0,-50);
         }
         if(Input.teleport.isPressedForOneFrame()){
             pos = mouseTile.toVector();
-            System.out.println(Input.getMousePosition().x);
-            System.out.println(Input.getMousePosition().y);
+
 
         }
         if(Input.moveLeft.isDown()) {
             pos = pos.add(new Vector2(-speed, 0.0).scale(Main.getDeltaTime()));
-            System.out.println("X:"+pos.x+" Y:"+pos.y);
         }
 
         if(Input.moveRight.isDown()) {

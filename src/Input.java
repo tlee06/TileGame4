@@ -16,6 +16,16 @@ public class Input {
     public static Keybind moveDown = new KeyboardKeybind(KeyEvent.VK_S);
     public static Keybind reset = new KeyboardKeybind(KeyEvent.VK_R);
     public static Keybind teleport = new KeyboardKeybind(KeyEvent.VK_T);
+    public static Keybind up = new KeyboardKeybind(KeyEvent.VK_KP_UP);
+    public static Keybind down = new KeyboardKeybind(KeyEvent.VK_KP_DOWN);
+
+    public static Keybind left = new KeyboardKeybind(KeyEvent.VK_KP_LEFT);
+
+    public static Keybind right = new KeyboardKeybind(KeyEvent.VK_KP_RIGHT);
+    public static Keybind b = new KeyboardKeybind(KeyEvent.VK_B);
+
+
+
 
 
 

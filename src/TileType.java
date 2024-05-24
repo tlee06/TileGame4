@@ -11,12 +11,7 @@ public class TileType extends AbstractTileType<TileType>{
         this.shouldCollide=true;
 
     }
-    private TileType(TileRenderer<TileType> renderer, BackgroundTileType backgroundType,boolean shouldCollide) {
-        super(renderer);
-        this.backgroundType = backgroundType;
-        this.shouldCollide=shouldCollide;
 
-    }
 
     public TileType(TileRenderer<TileType> renderer) {
         this(renderer, (BackgroundTileType) null);
