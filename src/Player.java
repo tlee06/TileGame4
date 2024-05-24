@@ -151,9 +151,10 @@ public class Player extends GameObject{
 
 
         if(Input.use.isPressedForOneFrame()){
-            if((Util.mouseClickWithinRange((int)(mouseTile.toVector().x-pos.x),(int)(mouseTile.toVector().y-pos.y),10))||noClipEnabled) { //added for gold/destroying blocks
-
-                if (World.getMainTile(mouseTile) != null && World.getMainTile(mouseTile).equals(Tiles.TREASURE)) { //added for gold
+            if((Util.mouseClickWithinRange((int)(mouseTile.toVector().x-pos.x),
+            (int)(mouseTile.toVector().y-pos.y),10))||noClipEnabled) { //added for gold/destroying blocks
+                //added for gold
+                if (World.getMainTile(mouseTile) != null && World.getMainTile(mouseTile).equals(Tiles.TREASURE)) { 
                     World.setMainTile(mouseTile, null);
                     goldCounter += 1;
                 } else {
@@ -162,7 +163,9 @@ public class Player extends GameObject{
             }
         }
         //added for placeBlock
-        if((Input.placeBlock.isPressedForOneFrame()&&(Util.mouseClickWithinRange((int)(mouseTile.toVector().x-pos.x),(int)(mouseTile.toVector().y-pos.y),10)))||Input.placeBlock.isPressedForOneFrame()&&noClipEnabled){
+        if((Input.placeBlock.isPressedForOneFrame()&&(Util.mouseClickWithinRange((int)(mouseTile.toVector().x-pos.x),
+            (int)(mouseTile.toVector().y-pos.y),10)))||
+            Input.placeBlock.isPressedForOneFrame()&&noClipEnabled){
             World.setMainTile(mouseTile,myTile);
             System.out.println("yes");
         }
